@@ -23,14 +23,20 @@
       <tr>
          <th>Product</th>
          <th>Name</th>
+          <th>Actual_price</th>
+            <th>offer</th>
+          <th>discoount_price</th>
          <th>Rating</th>
          <th>Comment Heading</th>
-         <th width="230">Comments</th>
+         <th width="230">Comment</th>
       </tr>
          {% for review in reviews %}
       <tr>
           <td>{{review['Product']}}</td>
          <td>{{review['Name']}}</td>
+          <td>{{review['Actual_price']}}</td>
+          <td>{{review['offer']}}</td>
+          <td>{{review['discoount_price']}}</td>
          <td>{{review['Rating']}}</td>
          <td>{{review['CommentHead']}}</td>
          <td>{{review['Comment']}} </td>

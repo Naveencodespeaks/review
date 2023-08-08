@@ -34,7 +34,7 @@ def index():
 
             filename = searchString + ".csv"
             fw = open(filename, "w")
-            headers = "Product, Customer Name, Rating, Heading, Comment \n"
+            headers = "Product, Customer Name,Actual_price Rating, Heading, Comment \n"
             fw.write(headers)
             reviews = []
             for commentbox in commentboxes:
@@ -44,14 +44,27 @@ def index():
 
                 except:
                     name = 'No Name'
+                try :
+                    price = prod_html.find_all('div', {'class': '_3I9_wc _2p6lqe'})[0].text
+                except:
+                    price = "no price"
 
                 try:
                     #rating.encode(encoding='utf-8')
                     rating = commentbox.div.div.div.div.text
-
-
                 except:
                     rating = 'No Rating'
+
+
+                try :
+                    offer_on_a_product = prod_html.find_all('div', {'class': '_3Ay6Sb _31Dcoz'})[0].text
+                except:
+                    offer_on_a_product = " No offer"
+
+                try :
+                    sale_price = prod_html.find_all('div', {"class": "_30jeq3 _16Jk6d"})[0].text
+                except:
+                    sale_price = "No difference"
 
                 try:
                     #commentHead.encode(encoding='utf-8')
@@ -66,7 +79,7 @@ def index():
                 except Exception as e:
                     print("Exception while creating dictionary: ",e)
 
-                mydict = {"Product": searchString, "Name": name, "Rating": rating, "CommentHead": commentHead,
+                mydict = {"Product": searchString, "Name": name,  "Actual_price": price, "offer":offer_on_a_product,  "discoount_price":sale_price, "Rating": rating, "CommentHead": commentHead,
                           "Comment": custComment}
                 reviews.append(mydict)
             return render_template('results.html', reviews=reviews[0:(len(reviews)-1)])
